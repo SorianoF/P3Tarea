@@ -51,4 +51,31 @@ form.addEventListener('submit', e => {
   
     guardarYMostrar();
     form.reset();
-  });
+});
+
+function eliminarPaciente(id) {
+  if (confirm('¿Deseas eliminar este paciente?')) {
+    pacientes = pacientes.filter(p => p.id !== id);
+    guardarYMostrar();
+  }
+}
+
+function editarPaciente(id) {
+  const paciente = pacientes.find(p => p.id === id);
+  nombre.value = paciente.nombre;
+  apellido.value = paciente.apellido;
+  dni.value = paciente.dni;
+  edad.value = paciente.edad;
+  editandoId = id;
+}
+
+buscar.addEventListener('input', () => {
+  mostrarPacientes(buscar.value);
+});
+
+function guardarYMostrar() {
+  localStorage.setItem('pacientes', JSON.stringify(pacientes));
+  mostrarPacientes();
+}
+
+mostrarPacientes();
