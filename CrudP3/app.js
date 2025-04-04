@@ -30,3 +30,25 @@ function mostrarPacientes(filtro = '') {
     lista.appendChild(li);
   });
 }
+
+form.addEventListener('submit', e => {
+    e.preventDefault();
+  
+    const paciente = {
+      id: editandoId || Date.now(),
+      nombre: nombre.value.trim(),
+      apellido: apellido.value.trim(),
+      dni: dni.value.trim(),
+      edad: edad.value.trim()
+    };
+  
+    if (editandoId) {
+      pacientes = pacientes.map(p => (p.id === editandoId ? paciente : p));
+      editandoId = null;
+    } else {
+      pacientes.push(paciente);
+    }
+  
+    guardarYMostrar();
+    form.reset();
+  });
